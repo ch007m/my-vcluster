@@ -57,7 +57,10 @@ Check if the Application is `sync/healthy` and look to the pod created under the
 ```shell
 ./get-vcluster-kubeconfig.sh worker-1
 kubectl --kubeconfig=worker-1-kube.cfg get pods
+NAMESPACE     NAME                      READY   STATUS    RESTARTS   AGE
+kube-system   coredns-bbb5b66cc-8k6mx   1/1     Running   0          24m
 ```
+TODO: Investigate why we only got as pod the coredns one and not the guestbook's pod
 
 ## Useful articles
 
