@@ -20,7 +20,7 @@ idpbuilder create \
 
 **Note**: You can add more vclusters or change the properties of the section `spec/generators/list/elements[]` by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml)
 
-Next, you can deploy the guestbook application against a vcluster using an Application
+Next, you can deploy a guestbook application against a vcluster using an Application resource
 ```shell
 echo "apiVersion: argoproj.io/v1alpha1
 kind: Application
