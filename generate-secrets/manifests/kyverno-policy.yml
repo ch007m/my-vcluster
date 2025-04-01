@@ -55,7 +55,7 @@ spec:
               argocd.argoproj.io/secret-type: cluster
           stringData:
             name: "{{ vclusterName }}"
-            server: "https://{{ vclusterName }}.{{ namespace }}:443"
+            server: "https://{{ vclusterName }}.cnoe.localtest.me:8443"
             config: |
               {
                 "tlsClientConfig": {
