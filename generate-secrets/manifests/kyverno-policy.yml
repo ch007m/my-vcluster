@@ -11,7 +11,7 @@ spec:
         any:
           - resources:
               names:
-                # DON'T WORK using "vc-*" - https://github:com/kyverno/kyverno/discussions/12614:
+                # DON'T WORK using "vc-*" - https://github:com/kyverno/kyverno/discussions/12614
                 - "vc-worker-1"
                 - "vc-worker-2"
                 - "vc-worker-3"

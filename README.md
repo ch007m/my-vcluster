@@ -67,7 +67,9 @@ kubectl --kubeconfig=worker-1-kube.cfg get pods -A
 NAMESPACE     NAME                      READY   STATUS    RESTARTS   AGE
 kube-system   coredns-bbb5b66cc-8k6mx   1/1     Running   0          24m
 ```
-TODO: Investigate why we only got as pod the coredns one and not the guestbook's pod
+TODO: Investigate why 
+- we only got as pod the coredns one and not the guestbook's pod
+- the matching rule of kyverno don't accept wildcard to find secrets having names: `vc-*` except `vc-config-*` - https://github:com/kyverno/kyverno/discussions/12614
 
 ## Useful articles
 
