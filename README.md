@@ -1,4 +1,4 @@
-# Instructions to create vclusters with idpbuilder
+# Instructions to create vclusters with idpbuilder on a kind kubernetes cluster
 
 The purpose of this project is to simulate an environment similar to what it is deployed within company's facilities where the users have access to different machines/servers deployed on `dev`, `test` or `prod` environments using kubernetes and vclusters.
 
