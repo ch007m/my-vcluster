@@ -13,10 +13,11 @@ idpbuilder create \
   --dev-password \
   --name idplatform \
   --port 8443 \
-  -p kyverno \
-  -p vcluster \
-  -p generate-secrets --recreate
+  -p vcluster --recreate
+    #-p kyverno \
+    #-p generate-secrets --recreate  
 ```
+
 **Note**: You can add more vclusters or change the properties of the section `spec/generators/list/elements[]` by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml) which is used to create the clusters.
 
 When the process completed, you will see for each `vcluster` a new namespace containing the: kube api, coredns and etcd pods
