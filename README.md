@@ -15,7 +15,7 @@ idpbuilder create \
   --port 8443 \
   -p kyverno \
   -p vcluster \
-  -p generate-secrets
+  -p generate-secrets --recreate
 ```
 **Note**: You can add more vclusters or change the properties of the section `spec/generators/list/elements[]` by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml) which is used to create the clusters.
 
@@ -63,7 +63,7 @@ spec:
 Check if the Application is `sync/healthy` and look to the pod created under the vcluster
 ```shell
 ./get-vcluster-kubeconfig.sh worker-1
-kubectl --kubeconfig=worker-1-kube.cfg get pods
+kubectl --kubeconfig=worker-1-kube.cfg get pods -A
 NAMESPACE     NAME                      READY   STATUS    RESTARTS   AGE
 kube-system   coredns-bbb5b66cc-8k6mx   1/1     Running   0          24m
 ```

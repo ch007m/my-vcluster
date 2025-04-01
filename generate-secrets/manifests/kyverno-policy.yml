@@ -11,7 +11,12 @@ spec:
         any:
           - resources:
               names:
-                - "vc-*" # Prefix of the secret created for each vcluster
+                # DON'T WORK using "vc-*" - https://github:com/kyverno/kyverno/discussions/12614:
+                - "vc-worker-1"
+                - "vc-worker-2"
+                - "vc-worker-3"
+                - "vc-worker-4"
+                - "vc-worker-5"
               kinds:
                 - Secret
       exclude:
