@@ -6,9 +6,7 @@ For that purpose we will create top of an IDPlatform different vclusters - https
 
 As each vcluster is exposed behind a Kubernetes API; it is then needed to create a Secret containing the kubeconfig that Argocd will use to access them. To populate the secret, we are using the help of [Kyverno](https://kyverno.io/) and a `ClusterPolicy`. See the policy's file [here](generate-secrets/manifests/kyverno-policy.yml).
 
-and will generate the secret's file containing the kubeconfig / tls configuration to access the Kubernetes Api of the vcluster using a 
-.
-So let's create 2 vclusters: `worker-1` and `worker-2` using idpbuilder and the following command
+To create 2 vclusters: `worker-1` and `worker-2` using idpbuilder, then execute the following command
 ```shell
 idpbuilder create \
   --color \
@@ -20,7 +18,7 @@ idpbuilder create \
   -p generate-secrets
 ```
 
-**Note**: You can add more vclusters or change the properties by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml)
+**Note**: You can add more vclusters or change the properties of the section `spec/generators/list/elements[]` by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml)
 
 Next, you can deploy the guestbook application against a vcluster using an Application
 ```shell
