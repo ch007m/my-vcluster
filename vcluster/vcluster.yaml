@@ -1,0 +1,65 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: vcluster
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - clusterName: worker-1
+            namespace: worker-1
+            environment: dev
+            team: team-a
+          - clusterName: worker-2
+            namespace: worker-2
+            environment: test
+            team: team-b
+          #- clusterName: worker-3
+          #  namespace: worker-3
+          #  environment: prod
+          #  team: team-c
+  template:
+    metadata:
+      name: "{{clusterName}}"
+      labels:
+        applicationName: "{{clusterName}}"
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io # enabling cascading deletion
+    spec:
+      project: default
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: "{{namespace}}"
+      source:
+        chart: vcluster
+        repoURL: https://charts.loft.sh
+        targetRevision: "0.24.0"
+        helm:
+          valuesObject:
+            controlPlane:
+              distro:
+                k8s:
+                  enabled: true
+              backingStore:
+                etcd:
+                  deploy:
+                    enabled: true
+              statefulSet:
+                scheduling:
+                  podManagementPolicy: OrderedReady
+              # Add an ingress host to access the vcluster Kubernetes API
+              ingress:
+                enabled: true
+                host: "{{clusterName}}.cnoe.localtest.me"
+                spec:
+                  ingressClassName: nginx
+            # Customize the content of the <vcluster> secret to set the server name and context
+            exportKubeConfig:
+              server: "https://{{clusterName}}.cnoe.localtest.me:8443"
+              context: "vc_{{clusterName}}"
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
