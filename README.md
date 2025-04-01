@@ -18,6 +18,16 @@ idpbuilder create \
   -p generate-secrets
 ```
 
+When the process completed, you will see for each `vcluster` a new namespace containing the: kube api, coredns and etcd pods
+```shell
+worker-1             coredns-bbb5b66cc-8k6mx-x-kube-system-x-worker-1           1/1     Running     0          123m
+worker-1             worker-1-5b6b5fcd96-hjffx                                  1/1     Running     0          125m
+worker-1             worker-1-etcd-0                                            1/1     Running     0          125m
+worker-2             coredns-bbb5b66cc-44q4c-x-kube-system-x-worker-2           1/1     Running     0          123m
+worker-2             worker-2-6f88c5697f-fdxxb                                  1/1     Running     0          125m
+worker-2             worker-2-etcd-0                                            1/1     Running     0          125m
+```
+
 **Note**: You can add more vclusters or change the properties of the section `spec/generators/list/elements[]` by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml)
 
 Next, you can deploy a guestbook application against a vcluster using an Application resource
