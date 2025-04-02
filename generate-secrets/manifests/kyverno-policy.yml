@@ -17,6 +17,9 @@ spec:
               # To match secrets dynamically, you must list full names or switch to using labels.
               kinds:
                 - Secret
+              operations:
+                - CREATE
+                - UPDATE
               selector:
                 matchExpressions:
                   # The key is a kube metadata.label
