@@ -70,6 +70,7 @@ spec:
                   "insecure": false,
                   "caData": "{{ ca }}",
                   "certData": "{{ cert }}",
-                  "keyData": "{{ key }}"
+                  "keyData": "{{ key }}",
+                  "serverName": 
                 }
               }

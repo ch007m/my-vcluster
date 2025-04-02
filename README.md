@@ -4,7 +4,9 @@ The purpose of this project is to simulate an environment similar to what it is 
 
 For that purpose we will create top of an IDPlatform different vclusters - https://www.vcluster.com/docs. The tool which is used under the hood to install the resources from files or helm chart on the kubernetes cluster is: Argo CD.
 
-As each vcluster is exposed behind a Kubernetes API; it is then needed to create a Secret containing the kubeconfig that Argocd will use to access them. To populate the secret, we are using the help of [Kyverno](https://kyverno.io/) and a `ClusterPolicy`. See the policy's file [here](generate-secrets/manifests/kyverno-policy.yml). For more information about how to create a policy, see the [doc](https://kyverno.io/docs/writing-policies/match-exclude/) page.
+As each vcluster is exposed behind a Kubernetes API; it is then needed to create a Secret containing the kubeconfig that Argocd will use to access them and to register it as [Cluster](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters). 
+
+To populate the secret, we are using the help of [Kyverno](https://kyverno.io/) and a `ClusterPolicy`. See the policy's file [here](generate-secrets/manifests/kyverno-policy.yml). For more information about how to create a policy, see the [doc](https://kyverno.io/docs/writing-policies/match-exclude/) page.
 
 **Remark**: The matching rule used part of the policy is looking to one of the workers names as: worker-1, worker-2 ... worker-5. such a list of should be defined as parameter if we convert the `generate-secrets` package into a helm package !
 
@@ -40,8 +42,8 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    server: https://kubernetes.default.svc
-    namespace: worker-1
+    server: worker-1
+    namespace: demo
   project: default
   source:
     repoURL: https://github.com/ch007m/my-vcluster
@@ -74,3 +76,20 @@ TODO: Investigate why
 ## Useful articles
 
 The following blog post is very interesting as it show how such a secret could be populated dynamically using kyverno: https://piotrminkowski.com/2022/12/09/manage-multiple-kubernetes-clusters-with-argocd/ (see section: Automatically Adding Argo CD Clusters with Kyverno)
+
+## Troubleshoot
+
+```shell
+argocd login argocd.cnoe.localtest.me:8443 --grpc-web --insecure --username admin --password developer
+argocd cluster list
+argocd cluster get worker-1 -o wide
+argocd cluster get worker-1
+```
+
+To check what it is created
+```shell
+INFO[0002] ServiceAccount "argocd-manager" created in namespace "kube-system" 
+INFO[0002] ClusterRole "argocd-manager-role" created    
+INFO[0002] ClusterRoleBinding "argocd-manager-role-binding" created 
+INFO[0002] Created bearer token secret for ServiceAccount "argocd-manager" 
+```
