@@ -22,7 +22,7 @@ idpbuilder create \
 ```
 **Note**: You can add more vclusters or change the properties of the section `spec/generators/list/elements[]` by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml) which is used to create the clusters.
 
-When the vclusters are created, then we can execute the following package able to generate the Argocd secret containing the `tlsConfig` allowing Argo CD to access the different Kubernetes API Servers !
+When the vclusters are created, then we can execute the following package able to generate a secret containing the `tlsConfig` allowing Argo CD to access the different Kubernetes API Servers !
 
 ```shell
 idpbuilder create \
