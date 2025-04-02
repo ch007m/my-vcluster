@@ -4,21 +4,21 @@ kind: ClusterPolicy
 metadata:
   name: sync-secret
 spec:
-  generateExistingOnPolicyUpdate: true
   rules:
     - name: sync-secret
       match:
         any:
           - resources:
-              names:
-                # DON'T WORK using "vc-*" - https://github:com/kyverno/kyverno/discussions/12614
-                - "vc-worker-1"
-                - "vc-worker-2"
-                - "vc-worker-3"
-                - "vc-worker-4"
-                - "vc-worker-5"
+              # DON'T WORK using "vc-*" as key matching name - https://github:com/kyverno/kyverno/discussions/12614
+              # The use of variables like {{ vclusterName }} in the match block is not allowed by Kyverno.
+              # Variables can only be used in the generate or context sections, so match blocks must rely on static values or label selectors.
+              # Additionally, attempting to use wildcards in the names field (e.g., "vc-*") doesn't work either, as Kyverno expects exact names there.
+              # To match secrets dynamically, you must list full names or switch to using labels.
               kinds:
                 - Secret
+              selector:
+                matchExpressions:
+                  - { key: vcluster-name, operator: In, values: [ "worker-1", "worker-2", "worker-3", "worker-4", "worker-5" ] }
       exclude:
         any:
           - resources:
@@ -27,6 +27,7 @@ spec:
                 - default
                 - kube-public
                 - kyverno
+                - argocd
       context:
         - name: namespace
           variable:
@@ -48,6 +49,7 @@ spec:
             value: "{{ replace_all(namespace, 'vcluster-', '') }}"
             jmesPath: 'to_string(@)'
       generate:
+        generateExisting: true
         kind: Secret
         apiVersion: v1
         name: "{{ vclusterName }}"
@@ -58,6 +60,7 @@ spec:
           metadata:
             labels:
               argocd.argoproj.io/secret-type: cluster
+              newClusterName: "{{ vclusterName }}"
           stringData:
             name: "{{ vclusterName }}"
             server: "https://{{ vclusterName }}.cnoe.localtest.me:8443"

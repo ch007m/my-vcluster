@@ -6,7 +6,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: worker-1
+    namespace: demo
   project: default
   source:
     path: helm-guestbook

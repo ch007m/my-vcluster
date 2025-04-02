@@ -4,7 +4,9 @@ The purpose of this project is to simulate an environment similar to what it is 
 
 For that purpose we will create top of an IDPlatform different vclusters - https://www.vcluster.com/docs. The tool which is used under the hood to install the resources from files or helm chart on the kubernetes cluster is: Argo CD.
 
-As each vcluster is exposed behind a Kubernetes API; it is then needed to create a Secret containing the kubeconfig that Argocd will use to access them. To populate the secret, we are using the help of [Kyverno](https://kyverno.io/) and a `ClusterPolicy`. See the policy's file [here](generate-secrets/manifests/kyverno-policy.yml).
+As each vcluster is exposed behind a Kubernetes API; it is then needed to create a Secret containing the kubeconfig that Argocd will use to access them. To populate the secret, we are using the help of [Kyverno](https://kyverno.io/) and a `ClusterPolicy`. See the policy's file [here](generate-secrets/manifests/kyverno-policy.yml). For more information about how to create a policy, see the [doc](https://kyverno.io/docs/writing-policies/match-exclude/) page.
+
+**Remark**: The matching rule used part of the policy is looking to one of the workers names as: worker-1, worker-2 ... worker-5. such a list of should be defined as parameter if we convert the `generate-secrets` package into a helm package !
 
 To create 2 vclusters: `worker-1` and `worker-2` using idpbuilder, then execute the following command
 ```shell
@@ -13,9 +15,9 @@ idpbuilder create \
   --dev-password \
   --name idplatform \
   --port 8443 \
-  -p vcluster --recreate
-    #-p kyverno \
-    #-p generate-secrets --recreate  
+  -p vcluster \
+  -p kyverno \
+  -p generate-secrets --recreate  
 ```
 
 **Note**: You can add more vclusters or change the properties of the section `spec/generators/list/elements[]` by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml) which is used to create the clusters.
