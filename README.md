@@ -22,7 +22,16 @@ idpbuilder create \
 ```
 **Note**: You can add more vclusters or change the properties of the section `spec/generators/list/elements[]` by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml) which is used to create the clusters.
 
-When the vclusters are created, then we can install the following package able to generate a secret containing the `tlsConfig` allowing Argo CD to access the different Kubernetes API Servers !
+
+When the process completed, you will see for each `vcluster` under their namespace the pods: kube api & coredns.
+```shell
+worker-1                 coredns-bbb5b66cc-sgbkc-x-kube-system-x-worker-1        ●       1/1        Running                       0 10.244.0.24        idplatform-control-plane        3m23s
+worker-1                 worker-1-0                                              ●       1/1        Running                       0 10.244.0.17        idplatform-control-plane        4m1s
+worker-2                 coredns-bbb5b66cc-cpd9g-x-kube-system-x-worker-2        ●       1/1        Running                       0 10.244.0.23        idplatform-control-plane        3m23s
+worker-2                 worker-2-0
+```
+
+When the vclusters are running, then we can install the following package able to generate a secret containing the `tlsConfig` allowing Argo CD to access the different Kubernetes API Servers !
 
 ```shell
 idpbuilder create \
@@ -33,14 +42,6 @@ idpbuilder create \
   -p vcluster \
   -p kyverno \
   -p generate-secrets
-```
-
-When the process completed, you will see for each `vcluster` a new namespace containing the: kube api, coredns and etcd pods
-```shell
-worker-1                 coredns-bbb5b66cc-sgbkc-x-kube-system-x-worker-1        ●       1/1        Running                       0 10.244.0.24        idplatform-control-plane        3m23s
-worker-1                 worker-1-0                                              ●       1/1        Running                       0 10.244.0.17        idplatform-control-plane        4m1s
-worker-2                 coredns-bbb5b66cc-cpd9g-x-kube-system-x-worker-2        ●       1/1        Running                       0 10.244.0.23        idplatform-control-plane        3m23s
-worker-2                 worker-2-0
 ```
 
 Next, you can deploy a guestbook application against a vcluster using an Argo CD Application resource.
