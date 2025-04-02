@@ -83,9 +83,7 @@ NAMESPACE     NAME                                        READY   STATUS    REST
 demo          guestbook-helm-guestbook-7fd6c45ccf-z8zqf   1/1     Running   0          45s
 kube-system   coredns-bbb5b66cc-k5km2                     1/1     Running   0          4m19s
 ```
-TODO: Investigate why 
-- we only got as pod the coredns one and not the guestbook's pod
-- the matching rule of kyverno don't accept wildcard to find secrets having names: `vc-*` except `vc-config-*` - https://github:com/kyverno/kyverno/discussions/12614
+Enjoy ;-)
 
 ## Useful articles
 
