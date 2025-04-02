@@ -31,7 +31,7 @@ worker-2                 coredns-bbb5b66cc-cpd9g-x-kube-system-x-worker-2       
 worker-2                 worker-2-0
 ```
 
-When the vclusters are running, then we can install the following package able to generate a secret containing the `tlsConfig` allowing Argo CD to access the different Kubernetes API Servers !
+When the vclusters are running, then we can install the following package able to generate a secret containing the `tlsConfig` configuration allowing Argo to access the different Kubernetes API Servers and to create the `cluster` resource !
 
 ```shell
 idpbuilder create \
