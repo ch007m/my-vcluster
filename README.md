@@ -8,7 +8,7 @@ As each vcluster is exposed behind a Kubernetes API; it is then needed to create
 
 To populate the secret, we are using the help of [Kyverno](https://kyverno.io/) and a `ClusterPolicy`. See the policy's file [here](generate-secrets/manifests/kyverno-policy.yml). For more information about how to create a policy, see the [doc](https://kyverno.io/docs/writing-policies/match-exclude/) page.
 
-**Remark**: The matching rule used part of the policy is looking to one of the workers names as: worker-1, worker-2 ... worker-5. Such a hard coded list of values should be defined as a parameter if we convert the `generate-secrets` package into a helm chart to get rid of that !
+**Remark**: The matching rule used part of the policy is looking to one of the worker's names: worker-1, worker-2 ... worker-5. Such a hard coded list of values should be defined as a parameter if we convert the `generate-secrets` package into a helm chart to get rid of that !
 
 To create 2 vclusters: `worker-1` and `worker-2` using idpbuilder, then execute the following command
 ```shell
