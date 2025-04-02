@@ -24,15 +24,13 @@ idpbuilder create \
 
 When the process completed, you will see for each `vcluster` a new namespace containing the: kube api, coredns and etcd pods
 ```shell
-worker-1             coredns-bbb5b66cc-8k6mx-x-kube-system-x-worker-1           1/1     Running     0          123m
-worker-1             worker-1-5b6b5fcd96-hjffx                                  1/1     Running     0          125m
-worker-1             worker-1-etcd-0                                            1/1     Running     0          125m
-worker-2             coredns-bbb5b66cc-44q4c-x-kube-system-x-worker-2           1/1     Running     0          123m
-worker-2             worker-2-6f88c5697f-fdxxb                                  1/1     Running     0          125m
-worker-2             worker-2-etcd-0                                            1/1     Running     0          125m
+worker-1                 coredns-bbb5b66cc-sgbkc-x-kube-system-x-worker-1        ●       1/1        Running                       0 10.244.0.24        idplatform-control-plane        3m23s
+worker-1                 worker-1-0                                              ●       1/1        Running                       0 10.244.0.17        idplatform-control-plane        4m1s
+worker-2                 coredns-bbb5b66cc-cpd9g-x-kube-system-x-worker-2        ●       1/1        Running                       0 10.244.0.23        idplatform-control-plane        3m23s
+worker-2                 worker-2-0
 ```
 
-Next, you can deploy a guestbook application against a vcluster using an Application resource
+Next, you can deploy a guestbook application against a vcluster using an Argo CD Application resource
 ```shell
 echo "apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -45,9 +43,12 @@ spec:
     namespace: worker-1
   project: default
   source:
-    path: helm-guestbook
-    repoURL: https://github.com/argoproj/argocd-example-apps
+    repoURL: https://github.com/ch007m/my-vclsuster
     targetRevision: HEAD
+    path: helm-guestbook
+    helm:
+      valuesObject:
+        namespace: demo
   syncPolicy:
     automated:
       prune: true
