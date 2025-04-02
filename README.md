@@ -49,9 +49,6 @@ spec:
     repoURL: https://github.com/ch007m/my-vcluster
     targetRevision: HEAD
     path: helm-guestbook
-    helm:
-      valuesObject:
-        namespace: demo
   syncPolicy:
     automated:
       prune: true
