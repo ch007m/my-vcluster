@@ -69,7 +69,7 @@ spec:
             labels:
               argocd.argoproj.io/secret-type: cluster
               newClusterName: "{{ vclusterName }}"
-          data:
+          stringData:
             name: "{{ vclusterName }}"
             server: "https://{{ vclusterName }}.cnoe.localtest.me:8443"
             config: |
