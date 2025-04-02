@@ -74,6 +74,10 @@ TODO: Investigate why
 
 The following blog post is very interesting as it show how such a secret could be populated dynamically using kyverno: https://piotrminkowski.com/2022/12/09/manage-multiple-kubernetes-clusters-with-argocd/ (see section: Automatically Adding Argo CD Clusters with Kyverno)
 
+## TODO
+
+Review the clusterPolicy based on this example: https://github.com/kyverno/policies/blob/main/argo/argo-cluster-generation-from-rancher-capi/argo-cluster-generation-from-rancher-capi.yaml#L35-L101
+
 ## Troubleshoot
 
 ```shell
@@ -81,12 +85,4 @@ argocd login argocd.cnoe.localtest.me:8443 --grpc-web --insecure --username admi
 argocd cluster list
 argocd cluster get worker-1 -o wide
 argocd cluster get worker-1
-```
-
-To check what it is created
-```shell
-INFO[0002] ServiceAccount "argocd-manager" created in namespace "kube-system" 
-INFO[0002] ClusterRole "argocd-manager-role" created    
-INFO[0002] ClusterRoleBinding "argocd-manager-role-binding" created 
-INFO[0002] Created bearer token secret for ServiceAccount "argocd-manager" 
 ```

@@ -1,4 +1,5 @@
 # Inspired from: https://piotrminkowski.com/2022/12/09/manage-multiple-kubernetes-clusters-with-argocd/
+# TODO: Align with this example: https://github.com/kyverno/policies/blob/main/argo/argo-cluster-generation-from-rancher-capi/argo-cluster-generation-from-rancher-capi.yaml#L35-L101
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
