@@ -18,8 +18,20 @@ idpbuilder create \
   --name idplatform \
   --port 8443 \
   -p vcluster \
+  -p kyverno --recreate  
+```
+
+When the vclusters are created, then we can execute the following package able to generate the Argocd secret containing the tlsConfig able access the Kubernetes API Server
+
+```shell
+idpbuilder create \
+  --color \
+  --dev-password \
+  --name idplatform \
+  --port 8443 \
+  -p vcluster \
   -p kyverno \
-  -p generate-secrets --recreate  
+  -p generate-secrets
 ```
 
 **Note**: You can add more vclusters or change the properties of the section `spec/generators/list/elements[]` by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml) which is used to create the clusters.
