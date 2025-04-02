@@ -18,7 +18,15 @@ spec:
                 - Secret
               selector:
                 matchExpressions:
-                  - { key: vcluster-name, operator: In, values: [ "worker-1", "worker-2", "worker-3", "worker-4", "worker-5" ] }
+                  # The key is a kube metadata.label
+                  - key: "vcluster-name"
+                    operator: In
+                    values:
+                      - "worker-1"
+                      - "worker-2"
+                      - "worker-3"
+                      - "worker-4"
+                      - "worker-5"
       exclude:
         any:
           - resources:
