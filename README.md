@@ -44,7 +44,7 @@ idpbuilder create \
   -p generate-secrets
 ```
 
-Next, you can deploy a guestbook application against a vcluster using an Argo CD Application resource.
+Next, you can deploy a guestbook application against a vcluster `worker-1` using an Argo CD Application resource.
 The helm resources will be deployed under the `demo` namespace of the vcluster.
 ```shell
 echo "apiVersion: argoproj.io/v1alpha1
