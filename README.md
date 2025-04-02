@@ -30,7 +30,8 @@ worker-2                 coredns-bbb5b66cc-cpd9g-x-kube-system-x-worker-2       
 worker-2                 worker-2-0
 ```
 
-Next, you can deploy a guestbook application against a vcluster using an Argo CD Application resource
+Next, you can deploy a guestbook application against a vcluster using an Argo CD Application resource.
+The helm resources will be deployed under the `demo` namespace of the vcluster.
 ```shell
 echo "apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -43,7 +44,7 @@ spec:
     namespace: worker-1
   project: default
   source:
-    repoURL: https://github.com/ch007m/my-vclsuster
+    repoURL: https://github.com/ch007m/my-vcluster
     targetRevision: HEAD
     path: helm-guestbook
     helm:
@@ -53,11 +54,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    retry:
-      backoff:
-        duration: 5s
-        factor: 2
-        maxDuration: 10m
     syncOptions:
     - CreateNamespace=true
     - RespectIgnoreDifferences=true
