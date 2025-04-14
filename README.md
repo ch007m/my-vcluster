@@ -18,10 +18,9 @@ idpbuilder create \
   --name idplatform \
   --port 8443 \
   -p vcluster \
-  -p kyverno --recreate  
+  -p kyverno --recreate
 ```
 **Note**: You can add more vclusters or change the properties of the section `spec/generators/list/elements[]` by editing locally the ApplicationSet file: [vcluster.yaml](vcluster/vcluster.yaml) which is used to create the clusters.
-
 
 When the process completed, you will see for each `vcluster` under their namespace the pods: kube api & coredns.
 ```shell
@@ -54,7 +53,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    server: worker-1
+    name: worker-1
     namespace: demo
   project: default
   source:
@@ -84,6 +83,23 @@ demo          guestbook-helm-guestbook-7fd6c45ccf-z8zqf   1/1     Running   0   
 kube-system   coredns-bbb5b66cc-k5km2                     1/1     Running   0          4m19s
 ```
 Enjoy ;-)
+
+## What about using Kratix
+
+First, it is needed to install Kratix and Cert Manager (which is a pre-requisites)
+
+```shell
+idpbuilder create \
+  --color \
+  --dev-password \
+  --name idplatform \
+  --port 8443 \
+  -p vcluster \
+  -p kyverno \
+  -p generate-secrets \
+  -p https://github.com/ch007m/my-idp-packages//cert-manager \
+  -p https://github.com/ch007m/my-idp-packages//kratix
+```
 
 ## Useful articles
 
